@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public class ProductRepository {
 
-    private List<Product> products = new ArrayList<>();
+    private final List<Product> products = new ArrayList<>();
 
     //GET
     List<Product> getAllProducts(){
@@ -19,7 +19,7 @@ public class ProductRepository {
     }
 
     Optional<Product> getProductById(Integer id){
-        return products.stream().filter(product -> product.id().equals(id)).findFirst();
+        return products.stream().filter(product -> product.productID().equals(id)).findFirst();
     }
 
     //POST
@@ -31,13 +31,14 @@ public class ProductRepository {
     void updateProduct(Product product, Integer id){
         Optional<Product> existingProduct = getProductById(id);
 
-        if (existingProduct.isPresent()) {
-        products.set(products.indexOf(existingProduct.get()), product);
+        if (existingProduct.isEmpty()) {
+            return;
         }
+        products.set(products.indexOf(existingProduct.get()), product);
     }
     //DELETE
     void deleteProduct(Integer id){
-        products.removeIf(product -> product.id().equals(id));
+        products.removeIf(product -> product.productID().equals(id));
     }
 
     @PostConstruct
