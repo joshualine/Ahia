@@ -10,14 +10,4 @@ import java.util.List;
 @RequestMapping("v1/users")
 public class UserController {
 
-    UserRepository userRepository;
-
-    public UserController(UserRepository userRepository){
-        this.userRepository = userRepository;
-    }
-
-    @GetMapping("")
-    List<User> getAllUsers(){
-        return userRepository.getAllUsers();
-    }
 }
